@@ -1,0 +1,23 @@
+{% if department.get_children.exists %}
+    <ul class="list-group collapse mt-3" id="department-{{ department.id }}">
+        {% for child in department.get_children %}
+            <li class="list-group-item">
+                {% if child.get_children %}
+                    <a href="#"
+                       class="toggle"
+                       data-bs-toggle="collapse"
+                       data-bs-target="#department-{{ child.id }}"
+                       aria-expanded="false"
+                       aria-controls="department-{{ child.id }}">
+                        {{ child.name }} (click to expand)
+                    </a>
+                {% else %}
+                    <span>{{ child.name }}</span>
+                {% endif %}
+                <br>
+                {% include "departments/includes/employees.html" with department=child %}
+                {% include "departments/includes/tree_element.html" with department=child %}
+            </li>
+        {% endfor %}
+    </ul>
+{% endif %}

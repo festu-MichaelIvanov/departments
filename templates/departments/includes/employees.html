@@ -1,0 +1,15 @@
+{% if department.employees.exists %}
+    <a href="#"
+       class="toggle"
+       data-bs-toggle="collapse"
+       data-bs-target="#employees-{{ department.id }}"
+       aria-expanded="false"
+       aria-controls="employees-{{ department.id }}">
+        Show employees list ({{ department.employees.count }})
+    </a>
+    <ul class="list-group collapse mt-1" id="employees-{{ department.id }}">
+        {% for employee in department.employees.all %}
+            <li class="list-group-item">{{ employee.get_info }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
